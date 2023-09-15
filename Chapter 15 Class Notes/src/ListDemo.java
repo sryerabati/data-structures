@@ -89,6 +89,14 @@ public class ListDemo
                 //staff.remove("Diana");
             }
         }
+
+        // An enhances for loop AUTOMATICALLY creates an iterator
+        for (String n: staff){
+            if (n.equals("Harry   -")){
+                staff.add("Charlie"); // Throws an exception because we are using the iterator and modifying the list.
+        }
+    
+    }
       
 
     }   
