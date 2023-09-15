@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Business utility methods.
@@ -13,6 +13,22 @@ public class Business
      */
     public static void downsize(LinkedList<String> employeeNames, int n)
     {
-        ...
+        int count = 1;
+    
+        ListIterator<String> iterator = employeeNames.listIterator();
+        //iterator.next();
+        
+        while(iterator.hasNext()){
+            iterator.next();
+            
+            if (count%n == 0){
+                iterator.remove();
+            }
+            count++;
+        
+        }
+        System.out.println(employeeNames);
     }
+
+        
 }
