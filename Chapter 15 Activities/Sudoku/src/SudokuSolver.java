@@ -37,6 +37,13 @@ public class SudokuSolver {
 
         // create the list of sets for each row (this.rows)
         // ...
+        this.rows = new ArrayList<Set<Integer>>();
+        
+        //add for loop for rows then add all sets to arrayliist or sumn
+        for (int col = 0; col<this.grid.length;col++){
+            this.rows.add()
+        }
+        
 
         // create the list of sets for each col (this.cols)
         // ...
@@ -149,7 +156,7 @@ public class SudokuSolver {
             System.out.println("Solved!");
             System.out.println(solver);
         } else {
-            System.out.println("Unsolveable...");
+            System.out.println("Unsolvable...");
         }
     }
 }
