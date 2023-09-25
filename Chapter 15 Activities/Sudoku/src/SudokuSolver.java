@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SudokuSolver {
-    private final int M = 3;
-    private final int N = M * M;
-    private int[][] grid;
-    private ArrayList<Set<Integer>> rows;
-    private ArrayList<Set<Integer>> cols;
-    private ArrayList<Set<Integer>> squares;
+    private final int M = 3; //number of squares in a row
+    private final int N = M * M; //number of squares in a sudoku
+    private int[][] grid; // 2d array of integers
+    private ArrayList<Set<Integer>> rows; // stores the rows
+    private ArrayList<Set<Integer>> cols; // store the cols
+    private ArrayList<Set<Integer>> squares; // stores all the squares
     private Set<Integer> nums;
 
     public SudokuSolver(String fileName) {
@@ -33,19 +33,40 @@ public class SudokuSolver {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open: " + fileName);
+            System.out.println(System.getProperty("user.dir"));
         }
 
+        
         // create the list of sets for each row (this.rows)
-        // ...
+        
         this.rows = new ArrayList<Set<Integer>>();
-        
-        //add for loop for rows then add all sets to arrayliist or sumn
-        for (int col = 0; col<this.grid.length;col++){
-            this.rows.add()
+        for (int i = 0; i<this.grid.length;i++){
+            this.rows.add(new HashSet<Integer>());
         }
+       
         
+        
+        for (int row = 0; row<this.grid.length;row++){
+            for (int col = 0; col<this.grid[0].length;col++){
+                this.rows.get(row).add(this.grid[row][col]);
+            }
+        }
+        // ...
 
         // create the list of sets for each col (this.cols)
+      
+        this.cols = new ArrayList<Set<Integer>>();
+        for (int i = 0; i<this.grid.length;i++){
+            this.cols.add(new HashSet<Integer>());
+        }
+        
+        
+      
+        for (int col = 0; col<this.grid.length;col++){
+            for (int row = 0; row<this.grid[0].length;row++){
+                this.cols.get(col).add(this.grid[row][col]);
+            }
+        }
         // ...
 
         // create the list of sets for each square (this.squares)
@@ -54,20 +75,40 @@ public class SudokuSolver {
             3 4 5
             6 7 8
          */
+        this.squares = new ArrayList<Set<Integer>>();
+        for (int i = 0; i<N;i++){
+            this.squares.add(new HashSet<Integer>());
+        }
+        for (int row = 0; row<this.grid.length;row++)
+        {
+            for (int col = 0; col<this.grid[0].length;col++)
+            {
+                int square = (row/3)*3 + (col/3);
+                this.squares.get(square).add(this.grid[row][col]);
+            }
+        }
+
+
+
+         
         // ...
 
         // create a hash set for [1..9] (this.nums)
+        this.nums = new HashSet<Integer>();
+        for (int i = 1; i<=9;i++){
+            this.nums.add(i);
+        }
         // ...
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
-            System.out.println("row " + row + ": " + this.rows.get(row));
+            System.out.println("row " + (row+1) + ": " + this.rows.get(row));
         }
         for (int col = 0; col < N; col++) {
-            System.out.println("col " + col + ": " + this.cols.get(col));
+            System.out.println("col " + (col+1) + ": " + this.cols.get(col));
         }
         for (int square = 0; square < N; square++) {
-            System.out.println("square " + square + ": " + this.squares.get(square));
+            System.out.println("square " + (square+1) + ": " + this.squares.get(square));
         }
         System.out.println(this.nums);
     }
@@ -148,15 +189,16 @@ public class SudokuSolver {
     }
 
     public static void main(String[] args) {
-        String fileName = "src/puzzle1.txt";
+        String fileName = "Chapter 15 Activities/Sudoku/src/puzzle1.txt";
 
         SudokuSolver solver = new SudokuSolver(fileName);
-        System.out.println(solver);
+
+       /*  System.out.println(solver);
         if (solver.solve()) {
             System.out.println("Solved!");
             System.out.println(solver);
         } else {
             System.out.println("Unsolvable...");
-        }
+        }*/
     }
 }
