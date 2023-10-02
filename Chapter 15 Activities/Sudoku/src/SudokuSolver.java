@@ -40,13 +40,9 @@ public class SudokuSolver {
         // create the list of sets for each row (this.rows)
         
         this.rows = new ArrayList<Set<Integer>>();
-        for (int i = 0; i<this.grid.length;i++){
-            this.rows.add(new HashSet<Integer>());
-        }
-       
-        
         
         for (int row = 0; row<this.grid.length;row++){
+            this.rows.add(new HashSet<Integer>());
             for (int col = 0; col<this.grid[0].length;col++){
                 this.rows.get(row).add(this.grid[row][col]);
             }
@@ -56,13 +52,12 @@ public class SudokuSolver {
         // create the list of sets for each col (this.cols)
       
         this.cols = new ArrayList<Set<Integer>>();
-        for (int i = 0; i<this.grid.length;i++){
-            this.cols.add(new HashSet<Integer>());
-        }
+        
         
         
       
-        for (int col = 0; col<this.grid.length;col++){
+        for (int col = 0; col<this.grid[0].length;col++){
+            this.cols.add(new HashSet<Integer>());
             for (int row = 0; row<this.grid[0].length;row++){
                 this.cols.get(col).add(this.grid[row][col]);
             }
@@ -84,7 +79,7 @@ public class SudokuSolver {
         {
             for (int col = 0; col<this.grid[0].length;col++)
             {
-                int square = (row/3)*3 + (col/3);
+                int square = (row/M)*M + (col/M);
                 this.squares.get(square).add(this.grid[row][col]);
             }
         }
@@ -149,31 +144,31 @@ public class SudokuSolver {
         possibleNums.removeAll(this.cols.get(nextCol));
         int nextSquare ;
 
-        /* 
-        if (nextRow <= N/M){
-            if (nextCol <= N/M)
-                nextSquare = 0;
-            else if (nextCol <= 2*N/M)
-                nextSquare = 1;
-            else
-                nextSquare = 2;
-        }
-        else if (nextRow <= 2*N/M){
-            if (nextCol <= N/M)
-                nextSquare = 3;
-            else if (nextCol <= 2*N/M)
-                nextSquare = 4;
-            else
-                nextSquare = 5;
-        }
-        else{
-            if (nextCol <= N/M)
-                nextSquare = 6;
-            else if (nextCol <= 2*N/M)
-                nextSquare = 7;
-            else
-                nextSquare = 8;
-        }
+        /*  
+        if (nextRow <= N/M){ 
+            if (nextCol <= N/M) 
+                nextSquare = 0; 
+            else if (nextCol <= 2*N/M) 
+                nextSquare = 1; 
+            else 
+                nextSquare = 2; 
+        } 
+        else if (nextRow <= 2*N/M){ 
+            if (nextCol <= N/M) 
+                nextSquare = 3; 
+            else if (nextCol <= 2*N/M) 
+                nextSquare = 4; 
+            else 
+                nextSquare = 5; 
+        } 
+        else{ 
+            if (nextCol <= N/M) 
+                nextSquare = 6; 
+            else if (nextCol <= 2*N/M) 
+                nextSquare = 7; 
+            else 
+                nextSquare = 8; 
+        } 
         */
         nextSquare = (nextRow / M) * M + (nextCol / M);
         //System.out.println("row: " + nextRow + " col: " + nextCol + " square: " + nextSquare);
