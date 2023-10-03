@@ -30,13 +30,12 @@ public class FirstLetterMap
                 Set <String> set = map.get(c);
                 if (set == null){
                     set = new HashSet<String>();
-                    set.add(word);
-                    map.put(c, set);
+                    
                 } 
-                else{
-                    set.add(word);
-                    map.put(c, set);
-                }
+                
+                set.add(word);
+                map.put(c, set);
+                
 
 
             }
