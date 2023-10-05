@@ -22,7 +22,7 @@ public class Driveway
     public Driveway()
     {
         // Complete the constructor
-        ...
+        
 
 
     }
