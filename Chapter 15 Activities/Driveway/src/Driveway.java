@@ -22,7 +22,8 @@ public class Driveway
     public Driveway()
     {
         // Complete the constructor
-        
+        driveway = new Stack<Integer>();
+        street = new Stack<Integer>()
 
 
     }
