@@ -57,9 +57,20 @@ public class ToDoList
      * @param optionStr the option line
     */
     public void addTask(String optionStr)
-    {
+    {   
+        int priority;
         // Complete this method
-        . . .
+        Scanner scan = new Scanner(optionStr);
+        scan.next();
+        try{
+            priority = scan.nextInt();
+        } catch (Exception e){
+            System.out.println("The priority must be an integer between 1 and 9.");
+            return;
+        }
+        String description = scan.nextLine();
+        Task task = new Task(priority, description);
+        tasks.add(task);
             
             
     }
@@ -73,7 +84,8 @@ public class ToDoList
         Task next = null;
         
         // Complete this method
-        . . .
+
+        next = tasks.poll();
         
         
         if (next == null)
