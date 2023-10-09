@@ -12,15 +12,14 @@ import java.util.Scanner;
 public class ToDoList
 {
     // Instance variable(s)
-    . . .
-
+    private PriorityQueue<Task> tasks;
     /**
      * Constructor
     */
     public ToDoList()
     {
         // Complete this
-        . . .
+        tasks = new PriorityQueue<Task>();
     }
 
     /**
