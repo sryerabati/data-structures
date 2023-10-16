@@ -8,12 +8,15 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
-
+    private Node first;
 
     /**
         Constructs an empty linked list.
     */
-
+    public LinkedList()
+    {
+        this.first = null;
+    }
 
 
 
@@ -21,7 +24,12 @@ public class LinkedList
         Returns the first element in the linked list.
         @return the first element in the linked list
     */
-
+    public Object getFirst() {
+        if (this.first == null) {
+            throw new NoSuchElementException();
+        }
+        return this.first.data;
+    }
 
 
 
@@ -29,7 +37,14 @@ public class LinkedList
         Removes the first element in the linked list.
         @return the removed element
     */
-
+    public Object removeFirst() {
+        if (this.first == null){
+            throw new NoSuchElementException();
+        }
+        Object element = this.first.data;
+        this.first = this.first.next;
+        return element;
+    }
 
 
 
@@ -38,7 +53,12 @@ public class LinkedList
         Adds an element to the front of the linked list.
         @param element the element to add
     */
-
+    public void addFirst(Object element) {
+       Node newNode = new Node();
+       newNode.data = element;
+       newNode.next = this.first;
+       this.first = newNode;
+    }
 
 
 
@@ -53,24 +73,46 @@ public class LinkedList
 
 
     //Class Node
+    // Why is this static? - So we aren't required to make a constructor and methods within the class, 
+    /**it would work as a regular one, but Node doesn't need access to anything in LinkedList class */
+    static class Node{
+        public Object data;
+        public Node next;
+    }
 
-
-    class LinkedListIterator //implements ListIterator
+    class LinkedListIterator implements ListIterator
     {
       //private data
-
+      private Node position;
+      private Node previous;
+      private boolean isAfterNext;
 
         /**
             Constructs an iterator that points to the front
             of the linked list.
         */
-
+        public LinkedListIterator(){
+            this.position = null;
+            this.previous = null;
+            this.isAfterNext = false;
+        }
 
         /**
             Moves the iterator past the next element.
             @return the traversed element
         */
+        public Object next(){
+            previous = position;
+            isAfterNext = true;
 
+            // The position is null when the iterator is first created
+            if (position == null){
+                position = first;
+            }
+            else   
+                position = position.next;
+            return position.data;
+        }
 
 
 
