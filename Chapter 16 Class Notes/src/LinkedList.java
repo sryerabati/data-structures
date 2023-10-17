@@ -67,7 +67,9 @@ public class LinkedList
         Returns an iterator for iterating through this list.
         @return an iterator for iterating through this list
     */
-
+    public ListIterator listIterator(){
+        return new LinkedListIterator();
+    }
 
 
 
@@ -102,6 +104,9 @@ public class LinkedList
             @return the traversed element
         */
         public Object next(){
+            if (!hasNext()){
+                throw new NoSuchElementException();
+            }
             previous = position;
             isAfterNext = true;
 
@@ -121,6 +126,13 @@ public class LinkedList
             Tests if there is an element after the iterator position.
             @return true if there is an element after the iterator position
         */
+        public boolean hasNext(){
+            //Return false if there are no elements in the list
+            if (position == null){
+                return first != null;
+            }
+            return position.next != null;
+        }
 
 
         /**
@@ -128,7 +140,22 @@ public class LinkedList
             and moves the iterator past the inserted element.
             @param element the element to add
         */
+        public void add(Object element){
+            // Check if the iterator is at the start of the list
+            if (position == null){
+                addFirst(element);
+                position = first;
+            }
+            else{
+                Node newNode = new Node();
+                newNode.data = element;
+                newNode.next = position.next;
+                position.next = newNode;
+                position = newNode;
+            }
+            isAfterNext = false;
 
+        }
 
 
 
@@ -138,7 +165,20 @@ public class LinkedList
             Removes the last traversed element. This method may
             only be called after a call to the next() method.
         */
-
+        public void remove(){
+            if (!isAfterNext){
+                throw new IllegalStateException();
+            }
+            if (position == first){
+                removeFirst();
+                position = null;
+            }
+            else{
+                previous.next = position.next;
+                position = previous;
+            }
+            isAfterNext = false;
+        }
 
 
 
@@ -149,6 +189,15 @@ public class LinkedList
             Sets the last traversed element to a different value.
             @param element the element to set
         */
+        public void set(Object element){
+            if (!isAfterNext){
+                throw new IllegalStateException();
+            }
+            
+            position.data = element;
+            
+        }
+        
 
 
 
