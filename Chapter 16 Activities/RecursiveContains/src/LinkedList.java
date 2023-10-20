@@ -50,9 +50,9 @@ public class LinkedList
         }
         else{
             System.out.println(3);
-            contains(temp, obj);
+            return contains(temp, obj);
         }
-        return false;
+        
     }
 
     /**
