@@ -31,7 +31,7 @@ public class LinkedList
             return 0;
         }
         else{
-            size(temp);
+             size(temp);
         }
         
     }
