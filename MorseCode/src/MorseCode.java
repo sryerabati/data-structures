@@ -2,6 +2,7 @@ import java.util.TreeMap;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MorseCode
 {
@@ -10,6 +11,7 @@ public class MorseCode
 
     private static TreeMap<Character, String> codeMap;
     private static TreeNode decodeTree;
+    private static TreeNode decodeRoot;
 
     public static void main(String[] args)
     {
@@ -22,6 +24,7 @@ public class MorseCode
     {
         codeMap = new TreeMap<Character, String>();
         decodeTree = new TreeNode(' ', null, null);  // autoboxing
+        decodeRoot = decodeTree;
         // put a space in the root of the decoding tree
 
         addSymbol('A', ".-");
@@ -71,9 +74,8 @@ public class MorseCode
      */
     private static void addSymbol(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        codeMap.put(letter, code);
+        treeInsert(letter, code);
     }
 
     /**
@@ -88,6 +90,25 @@ public class MorseCode
         /*
             !!! INSERT CODE HERE
         */
+        Scanner scan = new Scanner(code);
+        while(scan.hasNext()){
+            String s = scan.next();
+            if(s.equals(".")){
+                if(decodeTree.getLeft() == null){
+                    decodeTree.setLeft(new TreeNode(' ', null, null));
+                }
+                decodeTree = decodeTree.getLeft();
+            }
+            else if(s.equals("-")){
+                if(decodeTree.getRight() == null) {//Checks to see if right is null, if it is then empty node is created to fill the tree
+                    decodeTree.setRight(new TreeNode(' ', null, null));
+                }
+                decodeTree = decodeTree.getRight();
+            
+            }
+        }
+        decodeTree.setValue(letter); //Finds the location of the letter and sets it to the letter
+        decodeTree = decodeRoot; //To reset the tree back to the original root
     }
 
     /**
@@ -100,9 +121,23 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        Scanner scan = new Scanner(text);
+        while(scan.hasNext()){
+            String s = scan.next();
+            for(int i = 0; i < s.length(); i++){
+                char c = s.charAt(i);
+                if (c == ' '){
+                    morse.append(" "); //if the character in the string is a space, then adds an extra space after a word!! transfers directly to encoded message
+                }
+                else if(codeMap.containsKey(c)){
+                    morse.append(codeMap.get(c));
+                    morse.append(" "); // adds the space after the dot-dash sequence
+                }
+                else{
+                    morse.append(c);
+                }
+            }
+        }
 
         return morse.toString();
     }
@@ -117,9 +152,7 @@ public class MorseCode
     {
         StringBuffer text = new StringBuffer(100);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        
 
         return text.toString();
     }
