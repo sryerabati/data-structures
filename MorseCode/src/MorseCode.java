@@ -123,8 +123,8 @@ public class MorseCode
 
         Scanner scan = new Scanner(text);
         while(scan.hasNext()){
-            String s = scan.next();
-            for(int i = 0; i < s.length(); i++){
+            String s = scan.next(); 
+            for(int i = 0; i < s.length(); i++){ //
                 char c = s.charAt(i);
                 if (c == ' '){
                     morse.append(" "); //if the character in the string is a space, then adds an extra space after a word!! transfers directly to encoded message
@@ -132,9 +132,6 @@ public class MorseCode
                 else if(codeMap.containsKey(c)){
                     morse.append(codeMap.get(c));
                     morse.append(" "); // adds the space after the dot-dash sequence
-                }
-                else{
-                    morse.append(c);
                 }
             }
         }
@@ -151,7 +148,38 @@ public class MorseCode
     public static String decode(String morse)
     {
         StringBuffer text = new StringBuffer(100);
+        String subMorse = morse;
+        while (subMorse.length() > 1){
+            int index = subMorse.indexOf(" ");
+            if(index == -1){
+                text.append(subMorse);
+                subMorse = "";
+            }
+            else{
+                String s = subMorse.substring(0, index);
+                subMorse = subMorse.substring(index + 1);
+                if(s.equals("")){
+                    text.appe   nd(" ");
+                }
+                else{
+                    while((char)decodeTree.getValue() == ' ')
+                    {
+                        if (s.equals(".")){
+                            decodeTree = decodeTree.getLeft();
+                        }
+                        else if (s.equals("-")){
+                            decodeTree = decodeTree.getRight();
+                        }
+                    }
+                    text.append(decodeTree.getValue()); //
+                }
+            }
 
+
+
+
+            
+        }
         
 
         return text.toString();
