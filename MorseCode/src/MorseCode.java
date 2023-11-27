@@ -90,9 +90,9 @@ public class MorseCode
         /*
             !!! INSERT CODE HERE
         */
-        Scanner scan = new Scanner(code);
-        while(scan.hasNext()){
-            String s = scan.next();
+        
+        for(int i = 0; i < code.length(); i++){
+            String s = code.charAt(i)+"";
             if(s.equals(".")){
                 if(decodeTree.getLeft() == null){
                     decodeTree.setLeft(new TreeNode(' ', null, null));
